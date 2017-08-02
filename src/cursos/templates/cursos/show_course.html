@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block title %}{{ block.super }}Mis cursos{% endblock %}
+
+{% block container %}
+
+<div class="container profile-head">
+    <div class="row">
+        <div class="col-sm-10">
+            <h1>Viendo cursos: {{show_user.get_full_name}}</h1>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="container profile-body">
+  <div class="row">
+    <div class="col-sm-4">
+      <ul class="list-group">
+          <!--li class="list-group-item text-muted"><strong>FORMAS</strong></li-->
+          {% for cursos in cursos.all %}
+              {% if cursos.cursoVideo %}
+              <a href="{% url 'cursos:reproducir' cursos.id %}">
+                  <li class="list-group-item text-left">
+                      {{ cursos.idTipoCurso }} -- {{ cursos.cursoCode }}
+                  </li>
+              </a>
+              {% else %}
+                <li class="list-group-item text-left">
+                    {{ cursos.idTipoCurso }} -- {{ cursos.cursoCode }}
+                </li>
+              {% endif %}
+          {% endfor %}
+      </ul>
+    </div>
+    <div class="col-sm-8">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+	</div>
+        <div class="panel-body">
+	  <strong>{{ error }}</strong>
+            {% if video.cursoVideo %}
+            <div>
+                <video name='lua' controls width='50%' height='40%'>
+                    <source src="{{ MEDIA_URL }}{{video.cursoVideo}}" type="video/mp4"></source>
+                </video>
+            </div>
+            {% endif %}
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
