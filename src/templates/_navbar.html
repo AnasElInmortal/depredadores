@@ -1,0 +1,7 @@
+<li {% if active_link == "home" %}class="active"{% endif %}><a href="{% url 'home' %}">Inicio</a></li>
+{% if user.is_authenticated %}
+<li {% if active_link == "cursos:mostrarCursos" %}class="active"{% endif %}>
+    <a href="{% url 'cursos:mostrarCursos' %}">Cursos</a>
+</li>
+{% endif %}
+<li {% if active_link == "about" %}class="active"{% endif %}><a href="{% url 'about' %}">Acerca de</a></li>
