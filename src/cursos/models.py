@@ -18,8 +18,8 @@ class TipoCurso(models.Model):
 
 class Curso(models.Model):
     idTipoCurso = models.ForeignKey(TipoCurso, on_delete=models.CASCADE, verbose_name="Tipo curso")
-    cursoCode = models.CharField(max_length=200, unique=True)
-    cursoVideo = models.FileField ('Subir video',
+    cursoCode = models.CharField(max_length=200, unique=True, verbose_name="Curso")
+    cursoVideo = models.FileField ('Video',
                                 upload_to='video_cursos/%Y-%m-%d/',
                                 null=False,
                                 blank=True)
