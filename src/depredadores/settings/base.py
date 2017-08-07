@@ -91,9 +91,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'my_proj.urls'
+ROOT_URLCONF = 'depredadores.urls'
 
-WSGI_APPLICATION = 'my_proj.wsgi.application'
+WSGI_APPLICATION = 'depredadores.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
