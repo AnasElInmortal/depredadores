@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: latin-1 -*-
 from __future__ import unicode_literals
 from django.contrib.auth.forms import AuthenticationForm
 from django import forms
@@ -18,12 +20,12 @@ class LoginForm(AuthenticationForm):
         self.fields["username"].widget.input_type = "email"  # ugly hack
 
         self.helper.layout = Layout(
-            Field('username', placeholder="Enter Email", autofocus=""),
-            Field('password', placeholder="Enter Password"),
-            HTML('<a href="{}">Forgot Password?</a>'.format(
+            Field('username', placeholder="Ingrese su correo", autofocus=""),
+            Field('password', placeholder=u"Ingrese la contraseña"),
+            HTML(u'<a href="{}">¿Olvidaste tu contraseña?</a>'.format(
                 reverse("accounts:password-reset"))),
             Field('remember_me'),
-            Submit('sign_in', 'Log in',
+            Submit('sign_in', 'Inicia Sesion',
                    css_class="btn btn-lg btn-primary btn-block"),
             )
 
@@ -36,11 +38,11 @@ class SignupForm(authtoolsforms.UserCreationForm):
         self.fields["email"].widget.input_type = "email"  # ugly hack
 
         self.helper.layout = Layout(
-            Field('email', placeholder="Enter Email", autofocus=""),
-            Field('name', placeholder="Enter Full Name"),
-            Field('password1', placeholder="Enter Password"),
-            Field('password2', placeholder="Re-enter Password"),
-            Submit('sign_up', 'Sign up', css_class="btn-warning"),
+            Field('email', placeholder="Ingrese su correo", autofocus=""),
+            Field('name', placeholder="Ingrese su nombre completo"),
+            Field('password1', placeholder=u"Ingrese su contraseña"),
+            Field('password2', placeholder=u"Confirmar contraseña"),
+            Submit('sign_up', 'Registrate', css_class="btn-warning"),
             )
 
 
