@@ -10,7 +10,7 @@ User = get_user_model()
 
 
 class Cinta(models.Model):
-    cintaCode = models.CharField(max_length=200, unique=True, null=False)
+    cintaCode = models.CharField(max_length=200, unique=True, null=False, verbose_name="Cinta")
     descripcion = models.TextField(blank=True, null=True)
 
     def __str__(self):
