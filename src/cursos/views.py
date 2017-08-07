@@ -17,17 +17,20 @@ class MostrarCurso(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, *args, **kwargs):
         user = self.request.user
         idCinta = user.profile.idCinta
+        
+        if idCinta is not None:
+            video = self.kwargs.get('id')
+            if video:
+                elVideo = Curso.objects.filter(idCinta__lte = idCinta ).filter(pk=video)
+                if elVideo:
+                    kwargs["video"] = get_object_or_404(Curso, pk=video)
+                else:
+                    kwargs["error"] = 'No se encontró ningún video. Intente con otro.'
 
-        video = self.kwargs.get('id')
-        if video:
-            elVideo = Curso.objects.filter(idCinta__lte = idCinta ).filter(pk=video)
-            if elVideo:
-                kwargs["video"] = get_object_or_404(Curso, pk=video)
-            else:
-                kwargs["error"] = 'No hay ningún video que ver acá xD'
-
-        cursos = Curso.objects.filter(idCinta__lte = idCinta ).order_by('idTipoCurso','idCinta')
-        #Question.objects.filter( pub_date__lte=timezone.now() ).order_by('-pub_date')[:5]
-        kwargs["show_user"] = user
-        kwargs["cursos"] = cursos
+            cursos = Curso.objects.filter(idCinta__lte = idCinta ).order_by('idTipoCurso','idCinta')
+            #Question.objects.filter( pub_date__lte=timezone.now() ).order_by('-pub_date')[:5]
+            kwargs["show_user"] = user
+            kwargs["cursos"] = cursos
+        else:
+            kwargs["error"] = 'No hay ningún video que ver acá xD'
         return super(MostrarCurso, self).get(request, *args, **kwargs)
