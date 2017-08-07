@@ -2,16 +2,16 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}{{ block.super }}Log In{% endblock %}
+{% block title %}{{ block.super }}Iniciar Sesion{% endblock %}
 
-{% block form_heading %}Please Log In{% endblock %}
+{% block form_heading %}Por favor Inicia Sesion{% endblock %}
 
 {% block form %}
   {% crispy form %}
 
   <div class="form-message">
     <p>
-      Don't have an account? <a href="{% url 'accounts:signup' %}">Sign up</a>.
+      ¿No tienes una cuenta? <a href="{% url 'accounts:signup' %}">Registrate</a>.
     </p>
   </div>
 {% endblock form %}
