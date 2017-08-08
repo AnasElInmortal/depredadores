@@ -6,9 +6,6 @@ from .models import Profile
 from .models import Cinta
 from .models import Certificado
 
-from cursos.models import TipoCurso
-from cursos.models import Curso
-
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 
@@ -44,12 +41,6 @@ class certificadosField(admin.ModelAdmin):
         ('Usuario', {'fields': ['idUsuario']}),
     ]'''
 
-class cursosField(admin.ModelAdmin):
-    list_display = ('idTipoCurso', 'cursoCode', 'cursoVideo', 'idCinta',
-                    'descripcion',)
-    list_filter = ['idTipoCurso__tipoCursoCode', 'idCinta__cintaCode']
-    search_fields = ['idTipoCurso__tipoCursoCode', 'cursoCode', 'idCinta__cintaCode' ]
-
 
 admin.site.unregister(Group)
 admin.site.unregister(User)
@@ -58,5 +49,4 @@ admin.site.register(User, NewUserAdmin)
 admin.site.register(Cinta)
 admin.site.register(Certificado, certificadosField)
 
-admin.site.register(TipoCurso)
-admin.site.register(Curso,cursosField)
+
