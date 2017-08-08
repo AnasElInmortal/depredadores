@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #from profiles import models
 
 from models import Curso
+from models import TipoCurso
 
 from django.shortcuts import render
 
@@ -17,7 +18,7 @@ class MostrarCurso(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, *args, **kwargs):
         user = self.request.user
         idCinta = user.profile.idCinta
-        
+
         if idCinta is not None:
             video = self.kwargs.get('id')
             if video:
@@ -27,10 +28,18 @@ class MostrarCurso(LoginRequiredMixin, generic.TemplateView):
                 else:
                     kwargs["error"] = 'No se encontró ningún video. Intente con otro.'
 
+
             cursos = Curso.objects.filter(idCinta__lte = idCinta ).order_by('idTipoCurso','idCinta')
+            lista = []
+            for curso in cursos:
+                if curso.idTipoCurso_id not in lista:
+                    lista.append(curso.idTipoCurso_id)
+
+            kwargs["tiposCurso"] = TipoCurso.objects.filter(pk__in=lista).order_by('pk')
             #Question.objects.filter( pub_date__lte=timezone.now() ).order_by('-pub_date')[:5]
             kwargs["show_user"] = user
             kwargs["cursos"] = cursos
         else:
-            kwargs["error"] = 'No hay ningún video que ver acá xD'
+            kwargs["error"] = 'No tiene cinta asignada. Solicitelo al administrador del sitio.'
+
         return super(MostrarCurso, self).get(request, *args, **kwargs)
