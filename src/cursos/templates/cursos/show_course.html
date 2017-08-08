@@ -20,22 +20,35 @@
 <div class="container profile-body">
   <div class="row">
     <div class="col-sm-4">
-      <ul class="list-group">
-          <!--li class="list-group-item text-muted"><strong>FORMAS</strong></li-->
-          {% for cursos in cursos.all %}
-              {% if cursos.cursoVideo %}
-              <a href="{% url 'cursos:reproducir' cursos.id %}">
-                  <li class="list-group-item text-left">
-                      {{ cursos.idTipoCurso }} -- {{ cursos.cursoCode }}
-                  </li>
-              </a>
-              {% else %}
-                <li class="list-group-item text-left">
-                    {{ cursos.idTipoCurso }} -- {{ cursos.cursoCode }}
-                </li>
-              {% endif %}
-          {% endfor %}
-      </ul>
+        <div class="panel-group" id="accordion">
+            {% for tipos in tiposCurso.all %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{tipos.id}}">
+                        {{ tipos.tipoCursoCode }}</a>
+                    </h4>
+                </div>
+                <div id="collapse{{tipos.id}}" class="panel-collapse collapse">
+                    <ul class="list-group">
+                        {% for cursos in cursos.all %}
+                        {% if cursos.cursoVideo and cursos.idTipoCurso == tipos %}
+                        <a href="{% url 'cursos:reproducir' cursos.id %}">
+                            <li class="list-group-item text-left">
+                                {{ cursos.cursoCode }}
+                            </li>
+                        </a>
+                        {% elif cursos.idTipoCurso == tipos %}
+                        <li class="list-group-item text-left">
+                            {{ cursos.cursoCode }}
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
     <div class="col-sm-8">
       <div class="panel panel-default">
