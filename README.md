@@ -1,2 +1,2 @@
-# depredadores
-Proyecto de depredadores
+# Depredadores
+Proyecto de curso en depredadores.
